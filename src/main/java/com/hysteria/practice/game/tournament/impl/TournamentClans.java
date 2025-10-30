@@ -19,7 +19,6 @@ import com.hysteria.practice.game.tournament.Tournament;
 import com.hysteria.practice.game.tournament.TournamentState;
 import com.hysteria.practice.utilities.chat.CC;
 import lombok.Getter;
-import lombok.var;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;

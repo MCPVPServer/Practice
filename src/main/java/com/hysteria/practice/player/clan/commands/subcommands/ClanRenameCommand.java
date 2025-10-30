@@ -4,7 +4,6 @@ import com.hysteria.practice.utilities.MessageFormat;
 import com.hysteria.practice.utilities.TaskUtil;
 import com.hysteria.practice.Locale;
 import com.hysteria.practice.player.clan.Clan;
-import com.hysteria.practice.player.nametags.GxNameTag;
 import com.hysteria.practice.player.profile.Profile;
 import com.hysteria.practice.utilities.chat.CC;
 import com.mongodb.client.model.Filters;
@@ -65,9 +64,5 @@ public class ClanRenameCommand extends BaseCommand {
 
         Clan.getClans().put(new_name, clan);
         clan.save();
-        TaskUtil.runAsync(() -> {
-            GxNameTag.reloadOthersFor(player);
-            GxNameTag.reloadPlayer(player);
-        });
     }
 }

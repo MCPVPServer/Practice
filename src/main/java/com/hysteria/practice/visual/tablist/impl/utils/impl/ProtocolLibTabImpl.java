@@ -169,10 +169,6 @@ public class ProtocolLibTabImpl implements IRubenHelper {
     }
 
     private static void sendPacket(Player player, PacketContainer packetContainer){
-        try {
-            ProtocolLibrary.getProtocolManager().sendServerPacket(player, packetContainer);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        ProtocolLibrary.getProtocolManager().sendServerPacket(player, packetContainer);
     }
 }

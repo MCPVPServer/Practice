@@ -94,18 +94,6 @@ PARTY:
   # Vip host party size limit
   VIP_LIMIT: 100
 
-# Name-tag configuration
-NAMETAGS:
-  # default player color
-  DEFAULT_COLOR: '%color%'
-  # party member color?
-  PARTY_COLOR: AQUA
-  # event participants color?
-  EVENT_COLOR: AQUA
-  # Clan prefix
-  CLAN_FORMAT: '&7[%color%%clan%&7] &r'
-  # Staff prefix
-  STAFF_FORMAT: '&b[Staff] %color%'
 
 
 # Points needed to win a clan tournament?

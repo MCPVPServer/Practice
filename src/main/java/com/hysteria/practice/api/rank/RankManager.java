@@ -57,9 +57,9 @@ public class RankManager {
             this.setRank(new Aspirin());
             this.setRankSystem("Aspirin");
         }
-        else if (Bukkit.getPluginManager().getPlugin("Akuma") != null) {
-            this.setRank(new AkumaCore());
-            this.setRankSystem("Akuma");
+        else if(Bukkit.getPluginManager().getPlugin("StaffEssentials") != null) {
+            this.setRank(new StaffEssentials());
+            this.setRankSystem("StaffEssentials");
         }
         else if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
             this.loadVault();

@@ -54,8 +54,6 @@ import com.hysteria.practice.player.clan.ClanListener;
 import com.hysteria.practice.player.clan.commands.ClanCommand;
 import com.hysteria.practice.player.cosmetics.command.CosmeticsCommand;
 import com.hysteria.practice.player.cosmetics.impl.killeffects.command.KillEffectCommand;
-import com.hysteria.practice.player.nametags.GxNameTag;
-import com.hysteria.practice.player.nametags.HyPracticeTags;
 import com.hysteria.practice.player.party.classes.ClassTask;
 import com.hysteria.practice.player.party.classes.archer.ArcherClass;
 import com.hysteria.practice.player.party.classes.bard.BardEnergyTask;
@@ -72,7 +70,6 @@ import com.hysteria.practice.player.profile.file.impl.MongoDBIProfile;
 import com.hysteria.practice.player.profile.hotbar.Hotbar;
 import com.hysteria.practice.player.profile.meta.option.command.*;
 import com.hysteria.practice.player.profile.modmode.ModmodeListener;
-import com.hysteria.practice.player.profile.modmode.commands.StaffModeCommand;
 import com.hysteria.practice.player.queue.Queue;
 import com.hysteria.practice.player.queue.QueueListener;
 import com.hysteria.practice.utilities.*;
@@ -149,7 +146,6 @@ public class HyPractice extends JavaPlugin {
         loadEssentials();
         initManagers();
 
-        registerNameTags();
 
         registerCommands();
         registerListeners();
@@ -239,7 +235,6 @@ public class HyPractice extends JavaPlugin {
         Clan.init();
         Queue.init();
         Animation.init();
-        GxNameTag.hook();
         BoardAdapter.hook();
         Leaderboard.init();
         PlayerVersionHandler.init();
@@ -297,10 +292,7 @@ public class HyPractice extends JavaPlugin {
         }
     }
 
-    private void registerNameTags() {
-        Bukkit.getConsoleSender().sendMessage(CC.translate(prefix + "Initializing nametags for HyPractice"));
-        GxNameTag.registerProvider(new HyPracticeTags());
-    }
+
 
     private void loadSaveMethod() {
         Bukkit.getConsoleSender().sendMessage(CC.translate(prefix + "Initializing save method for HyPractice"));
@@ -316,7 +308,7 @@ public class HyPractice extends JavaPlugin {
         if (Profile.getIProfile() instanceof MongoDBIProfile) {
             try {
                 if (databaseConfig.getBoolean("MONGO.URI")) {
-                    this.mongoConnection = new MongoConnection(databaseConfig.getString("MONGO.URI_LINK"));
+                    this.mongoConnection = new MongoConnection(databaseConfig.getString("MONGO.URI_LINK"), "practice");
                 } else if (databaseConfig.getBoolean("MONGO.AUTHENTICATION.ENABLED")) {
                     this.mongoConnection = new MongoConnection(
                             databaseConfig.getString("MONGO.HOST"),
@@ -344,7 +336,6 @@ public class HyPractice extends JavaPlugin {
     }
 
     private void runTasks() {
-        TaskUtil.runTimer(() -> Bukkit.getOnlinePlayers().forEach(player -> Bukkit.getOnlinePlayers().forEach(other -> TaskUtil.run(() -> GxNameTag.reloadPlayer(player, other)))), 20L, 20L);
         TaskUtil.runTimer(new ClassTask(), 5L, 5L);
         TaskUtil.runTimer(new BardEnergyTask(), 15L, 20L);
         TaskUtil.runTimer(() ->
@@ -490,7 +481,6 @@ public class HyPractice extends JavaPlugin {
         new ToggleSoundsCommand();
         new ToggleSpectatorsCommand();
         new BotFight();
-        if (getMainConfig().getBoolean("MOD_MODE")) new StaffModeCommand();
     }
 
     private void loadEssentials() {

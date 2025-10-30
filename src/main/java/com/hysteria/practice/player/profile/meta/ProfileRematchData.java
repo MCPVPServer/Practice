@@ -18,7 +18,6 @@ import com.hysteria.practice.utilities.chat.ChatHelper;
 import com.hysteria.practice.match.impl.BasicTeamBedFight;
 import com.hysteria.practice.player.profile.participant.alone.GameParticipant;
 import lombok.Getter;
-import lombok.var;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

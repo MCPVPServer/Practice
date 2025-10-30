@@ -2,6 +2,7 @@ package com.hysteria.practice.player.profile.modmode;
 
 import com.hysteria.practice.player.profile.visibility.VisibilityLogic;
 import com.hysteria.practice.utilities.MessageFormat;
+import com.hysteria.practice.utilities.PlayerUtil;
 import com.hysteria.practice.utilities.TaskUtil;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import com.hysteria.practice.Locale;
@@ -76,6 +77,9 @@ public class ModmodeListener implements Listener {
                     new MessageFormat(Locale.STAFF_MODE_NOW_IN_SPAWN.format(profile.getLocale()))
                             .send(player);
                 }
+                else if (hotbarItem == HotbarItem.ONLINE_STAFF) {
+                    PlayerUtil.makePlayerRunVelocityCommand(player, "stafflist");
+                }
             }
         }
     }
@@ -93,7 +97,7 @@ public class ModmodeListener implements Listener {
             }
 
             if (Hotbar.fromItemStack(player.getItemInHand()) == HotbarItem.FREEZE) {
-                player.performCommand("ss " + target.getName());
+                player.performCommand("freeze " + target.getName());
             }
         }
     }

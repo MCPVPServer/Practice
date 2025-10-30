@@ -2,7 +2,6 @@ package com.hysteria.practice.player.profile;
 
 import com.hysteria.practice.essentials.event.SpawnTeleportEvent;
 import com.hysteria.practice.player.clan.Clan;
-import com.hysteria.practice.player.nametags.GxNameTag;
 import com.hysteria.practice.player.profile.hotbar.Hotbar;
 import com.hysteria.practice.player.profile.hotbar.impl.HotbarItem;
 import com.hysteria.practice.player.profile.visibility.VisibilityLogic;
@@ -200,12 +199,7 @@ public class ProfileListener implements Listener {
 		}
 
 		TaskUtil.runAsync(()-> {
-			if (GxNameTag.isInitiated()) {
 				player.setMetadata("sl-LoggedIn", new FixedMetadataValue(HyPractice.get(), true));
-				GxNameTag.initiatePlayer(player);
-				GxNameTag.reloadPlayer(player);
-				GxNameTag.reloadOthersFor(player);
-			}
 		});
 
 		for (Player otherPlayer : Bukkit.getOnlinePlayers()) {

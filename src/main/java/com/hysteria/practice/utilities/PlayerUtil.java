@@ -4,6 +4,8 @@ package com.hysteria.practice.utilities;
 import com.hysteria.practice.HyPractice;
 import com.hysteria.practice.utilities.playerversion.PlayerVersion;
 import com.hysteria.practice.utilities.playerversion.PlayerVersionHandler;
+import net.minecraft.util.com.google.common.io.ByteArrayDataOutput;
+import net.minecraft.util.com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -88,5 +90,13 @@ public class PlayerUtil {
 
 	public static PlayerVersion getPlayerVersion(Player player) {
 		return PlayerVersionHandler.version.getPlayerVersion(player);
+	}
+
+	public static void makePlayerRunVelocityCommand(Player player, String command) {
+		ByteArrayDataOutput out = ByteStreams.newDataOutput();
+		out.writeUTF("RunPlayerCommand");
+		out.writeUTF(player.getName());
+		out.writeUTF(command);
+		player.sendPluginMessage(HyPractice.get(), "velocitycore:execcmd", out.toByteArray());
 	}
 }

@@ -42,7 +42,7 @@ public enum HotbarItem {
 	SETTINGS("options"),
 	//FFA_JOIN("ffa join"),
 	RESET(null),
-	ONLINE_STAFF("stafflist"),
+	ONLINE_STAFF(null),
 	COMPASS("/thru"),
 	FREEZE(null),
 

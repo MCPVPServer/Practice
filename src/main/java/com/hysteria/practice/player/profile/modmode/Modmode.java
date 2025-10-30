@@ -1,7 +1,5 @@
 package com.hysteria.practice.player.profile.modmode;
 
-import cc.insidious.akuma.api.AkumaAPI;
-import cc.insidious.akuma.api.channel.ChatChannel;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.hysteria.practice.HyPractice;
@@ -17,6 +15,8 @@ import com.hysteria.practice.utilities.PlayerUtil;
 import com.hysteria.practice.utilities.StringUtils;
 import com.hysteria.practice.utilities.TaskUtil;
 import lombok.Getter;
+import me.kaleb.staffEssentials.StaffEssentials;
+import me.kaleb.staffEssentials.utils.TpsUtil;
 import meth.crystal.aspirin.plugin.AspirinAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -143,26 +143,28 @@ public class Modmode {
                                     .replace("{in-staff-chat}", String.valueOf(AspirinAPI.INSTANCE.isStaffChat(player)))));
                     break;
                 }
-                case "Akuma": {
-                    HyPractice.get().getScoreboardConfig().getStringList("STAFF_MODE.LOBBY").forEach(s ->
-                            lines.add(s
-                                    .replace("{online}", String.valueOf(Bukkit.getOnlinePlayers().size()))
-                                    .replace("{in-fights}", String.valueOf(HyPractice.get().getInFights()))
-                                    .replace("{players}", String.valueOf(Bukkit.getOnlinePlayers().size()))
-                                    .replace("{staffs}", String.valueOf(Bukkit.getOnlinePlayers().stream().filter(player1 -> Profile.get(player1.getUniqueId()).getState() == ProfileState.STAFF_MODE).count()))
-                                    .replace("{in-fight}", String.valueOf(HyPractice.get().getInFights()))
-                                    .replace("{in-staff-chat}", String.valueOf(AkumaAPI.getInstance().getProfileHandler().getProfile(player.getUniqueId()).getChatChannel() == ChatChannel.STAFF))
-                    ));
-                    break;
-                }
                 default: {
+                    me.kaleb.staffEssentials.profile.Profile profile1 = me.kaleb.staffEssentials.profile.Profile.getOrCreate(player);
+
+                    String scStatus = profile1.isStaffChatToggled()
+                            ? "§a✔"
+                            : "§c✘";
+
                     HyPractice.get().getScoreboardConfig().getStringList("STAFF_MODE.LOBBY").forEach(s ->
                             lines.add(s
                                     .replace("{online}", String.valueOf(Bukkit.getOnlinePlayers().size()))
                                     .replace("{in-fights}", String.valueOf(HyPractice.get().getInFights()))
                                     .replace("{players}", String.valueOf(Bukkit.getOnlinePlayers().size()))
-                                    .replace("{staffs}", String.valueOf(Bukkit.getOnlinePlayers().stream().filter(player1 -> Profile.get(player1.getUniqueId()).getState() == ProfileState.STAFF_MODE).count()))
-                                    .replace("{in-fight}", String.valueOf(HyPractice.get().getInFights()))));
+                                    .replace("{staffs}", String.valueOf(
+                                            Bukkit.getOnlinePlayers().stream()
+                                                    .filter(player1 -> Profile.get(player1.getUniqueId()).getState() == ProfileState.STAFF_MODE)
+                                                    .count()
+                                    ))
+                                    .replace("{in-fight}", String.valueOf(HyPractice.get().getInFights()))
+                                    .replace("{tps}", format(TpsUtil.getTPS()))
+                                    .replace("{scstatus}", scStatus)
+                            )
+                    );
                     break;
                 }
             }

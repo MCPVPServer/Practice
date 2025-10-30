@@ -5,7 +5,6 @@ import com.hysteria.practice.utilities.TaskUtil;
 import com.hysteria.practice.utilities.chat.StyleUtil;
 import com.hysteria.practice.Locale;
 import com.hysteria.practice.player.clan.Clan;
-import com.hysteria.practice.player.nametags.GxNameTag;
 import com.hysteria.practice.player.profile.Profile;
 import com.hysteria.practice.utilities.chat.CC;
 import com.hysteria.practice.api.command.BaseCommand;
@@ -55,9 +54,5 @@ public class ClanSetColorCommand extends BaseCommand {
         clan.broadcast(Locale.CLAN_SET_COLOR_BROADCAST, new MessageFormat()
                 .add("{new_color}", StyleUtil.colorName(ChatColor.valueOf(color.toUpperCase())))
                 .add("{color}", color.toUpperCase()));
-        TaskUtil.runAsync(() -> {
-            GxNameTag.reloadOthersFor(player);
-            GxNameTag.reloadPlayer(player);
-        });
     }
 }
